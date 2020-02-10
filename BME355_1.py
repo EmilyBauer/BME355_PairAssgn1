@@ -10,8 +10,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def f(x):
+def f(t, x):
     return np.matmul([[0, -1], [1, 0]], x)
+def rk4_update(x):
+    
+        s1 = f(t, x)
+        s2 = f(t + dt/2, x + dt/2*s1)
+        s3 = f(t + dt/2, x + dt/2*s2)
+        s4 = f(t + dt, x + dt*s2)
+        x = x + dt/6*(s1 + 2*s2 + 2*s3 + s4)
+        return x
+
 
 
 dt = .05
@@ -25,7 +34,8 @@ for dt in [dt, 10/dt]:
         times.append(t)
         trajectory.append(x)
         t = t + dt
-        x = x + f(x)*dt
+        # x = x + f(0, x)*dt
+        x = rk4_update(x)
 
     plt.plot(times, trajectory)
 
@@ -33,13 +43,4 @@ plt.xlabel('Time (s)')
 plt.ylabel('State')
 plt.tight_layout()
 plt.show()
-
-
-def rk4_update(x):
-    s1 = f(t, x)
-    s2 = f(t + dt/2, x + dt/2*s1)
-    s3 = f(t + dt/2, x + dt/2*s2)
-    s4 = f(t + dt, x + dt*s2)
-    x = x + dt/6*(s1 + 2*s2 + 2*s3 + s4)
-
 
