@@ -1,5 +1,5 @@
 """
-BME 355 - Assignment 1
+BME 355 - Assignment 1 Q1
 BME355_1.py
 Sarah Schwartzel    20710946
 Emily Bauer         20727725
@@ -8,35 +8,29 @@ Emily Bauer         20727725
 
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.linalg as la
 
-A = np.array([[0,-1],[1,0]])
 
 def f(x):
-    """
-    :param x: state vector
-    :return: derivative of state vector wrt time
-    """
-    return np.dot(A, x)
+    return np.matmul([[0, -1], [1, 0]], x)
 
-initState = np.array([[1,0]])
-dt = 0.05
-duration = 10
-time = np.arange(0,duration,dt)
-x = np.array([[0],[0]])
-xVal = []
-for t in time:
-    if t == 0:
-        x = initState + dt*f(x)
-        xVal.append(x)
-    else:
-        x = x+dt*f(x)
-        xVal.append(x)
 
-xVal = np.array(xVal)
-plt.plot(time, xVal[:,0])
-plt.ylabel('State')
+dt = .05
+for dt in [dt, 10/dt]:
+    times = []
+    trajectory = []
+
+    t = 0
+    x = np.array([1, 0])
+    for i in range(int(10/dt)):
+        times.append(t)
+        trajectory.append(x)
+        t = t + dt
+        x = x + f(x)*dt
+
+    plt.plot(times, trajectory)
+
 plt.xlabel('Time (s)')
+plt.ylabel('State')
 plt.tight_layout()
 plt.show()
 
