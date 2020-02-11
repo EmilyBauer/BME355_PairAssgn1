@@ -23,22 +23,22 @@ def rk4_update(x):
         x = x + dt/6*(s1 + 2*s2 + 2*s3 + s4)
         return x
 
-fancyMethod = solve_ivp(f, [0, 10], [1,0])
-dt = 0.25
+fancyMethod = solve_ivp(f, [0, 10], [1, 0], max_step = 0.05)
+dt = 0.05
 for dt in [dt, 10/dt]:
-    time = []
+    times = []
     trajectory = []
     t = 0
     x = np.array([1, 0])
     for i in range(int(10/dt)):
-        time.append(t)
+        times.append(t)
         trajectory.append(x)
         t = t + dt
-#         x = x + f(0, x)*dt        #Uncomment this code for running the Euler method
-#         x = rk4_update(x)         #Uncomment this code for running the RK4 method
-#         x = fancyMethod.y         #Uncomment this code for running the scipy.integrate.solve_ivp method
-#     plt.plot(times, trajectory)   #Uncomment this plt code for running Euler method or RK4 method
-#     plt.plot(fancyMethod.t, np.transpose(fancyMethod.y)) #Uncomment this code for running the scipy.integrate.solve_ivp method
+        # x = x + f(0, x)*dt        #Uncomment this code for running the Euler method
+        # x = rk4_update(x)         #Uncomment this code for running the RK4 method
+    # plt.plot(times, trajectory)   #Uncomment this plt code for running Euler method or RK4 method
+# x = fancyMethod.y               #Uncomment this code for running the scipy.integrate.solve_ivp method
+# plt.plot(fancyMethod.t, np.transpose(fancyMethod.y)) #Uncomment this code for running the scipy.integrate.solve_ivp method
 plt.xlabel('Time (s)')
 plt.ylabel('State')
 plt.tight_layout()
