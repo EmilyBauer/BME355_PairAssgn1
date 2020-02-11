@@ -9,25 +9,22 @@ Emily Bauer         20727725
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 def f(x):
     return np.matmul([[0, -1], [1, 0]], x)
 
-
 dt = .05
 for dt in [dt, 10/dt]:
-    times = []
+    time = []
     trajectory = []
-
     t = 0
     x = np.array([1, 0])
     for i in range(int(10/dt)):
-        times.append(t)
+        time.append(t)
         trajectory.append(x)
         t = t + dt
         x = x + f(x)*dt
 
-    plt.plot(times, trajectory)
+    plt.plot(time, trajectory)
 
 plt.xlabel('Time (s)')
 plt.ylabel('State')

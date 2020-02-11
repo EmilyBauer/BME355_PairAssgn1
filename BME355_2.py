@@ -10,11 +10,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.linalg as la
 
-a,b = 1000,1
-alpha = 20000
-p0 = 2000
-g= 9.807
-m=220
+a,b = 1000,1        #force-velocity curve const
+alpha = 20000       #spring const (N/m)
+p0 = 2000           #isometric force (N)
+g= 9.807            #gravity
+m=220               #mass (kg)
 
 def f(x):
     """
@@ -27,31 +27,33 @@ def f(x):
         x[1]
     ])
 
-dt = 0.1
+dt = 0.001
 time = np.arange(0,5,dt)
 x = np.array([0,0,0])
-
-xVal = []
+x_trajectory = []
 for t in time:
-    if t == 0:
-        x = initState + dt*f(x)
-        xVal.append(x)
-        print(x)
-    else:
-        x = x+dt*f(x)
-        xVal.append(x)
+    x = x + dt*f(x)
+    x_trajectory.append(x)
 
-xVal = np.array(xVal)
+xa = f(x,u)
+xb = f(x+t*xa,u)
+x = x+1/2*t(xb+xa)
 
+x_trajectory = np.array(x_trajectory)
 plt.subplot(3,1,1)
-plt.plot(time, xVal[:,0])
+plt.plot(time, x_trajectory[:,0])
 plt.ylabel('Tension (N)')
 plt.subplot(3,1,2)
-plt.plot(time, xVal[:,1])
+plt.plot(time, x_trajectory[:,1])
 plt.ylabel('Velocity (m/s)')
 plt.subplot(3,1,3)
-plt.plot(time, xVal[:,2])
+plt.plot(time, x_trajectory[:,2])
 plt.ylabel('Position (m)')
 plt.xlabel('Time (s)')
 plt.tight_layout()
 plt.savefig('hill-mass-simulation.png')
+plt.show()
+
+#Trapezoidal method
+# smthn smth smthn
+
