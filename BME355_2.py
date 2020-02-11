@@ -35,9 +35,10 @@ for t in time:
     x = x + dt*f(x)
     x_trajectory.append(x)
 
-xa = f(x,u)
-xb = f(x+t*xa,u)
-x = x+1/2*t(xb+xa)
+
+xa = f(x)
+xb = f(x+dt*xa)
+x = x+1/2*dt*(xb+xa)
 
 x_trajectory = np.array(x_trajectory)
 plt.subplot(3,1,1)
