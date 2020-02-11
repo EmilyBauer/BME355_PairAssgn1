@@ -27,18 +27,19 @@ def f(x):
         x[1]
     ])
 
-dt = 0.001
-time = np.arange(0,5,dt)
+dt = 0.0078125
+time = np.arange(0,2,dt)
 x = np.array([0,0,0])
 x_trajectory = []
 for t in time:
-    x = x + dt*f(x)
+    # x = x + dt*f(x)
+    xa = f(x)
+    xb = f(x+dt*xa)
+    x = x+1/2*dt*(xb+xa)
     x_trajectory.append(x)
 
 
-xa = f(x)
-xb = f(x+dt*xa)
-x = x+1/2*dt*(xb+xa)
+
 
 x_trajectory = np.array(x_trajectory)
 plt.subplot(3,1,1)
@@ -52,7 +53,7 @@ plt.plot(time, x_trajectory[:,2])
 plt.ylabel('Position (m)')
 plt.xlabel('Time (s)')
 plt.tight_layout()
-plt.savefig('hill-mass-simulation.png')
+plt.savefig('Q2_0.0078125dt.png')
 plt.show()
 
 #Trapezoidal method
